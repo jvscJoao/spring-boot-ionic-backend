@@ -1,4 +1,4 @@
-package com.cursomc.cursomc.resources;
+package com.cursomc.cursomc.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
