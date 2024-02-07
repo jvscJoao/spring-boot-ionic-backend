@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.cursomc.cursomc.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.ElementCollection;
@@ -30,6 +31,7 @@ public class Cliente {
     private String cpfOuCpnj;
     private Integer tipo;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
