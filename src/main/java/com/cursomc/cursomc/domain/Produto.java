@@ -35,7 +35,7 @@ public class Produto {
     private Double preco;
 
     @ManyToMany
-    @JsonBackReference
+    @JsonIgnore
     @JoinTable(
         name = "PRODUTO_CATEGORIA",
         joinColumns = @JoinColumn(name = "produto_id"),
