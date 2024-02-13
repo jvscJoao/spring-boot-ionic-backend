@@ -1,5 +1,7 @@
 package com.cursomc.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import lombok.EqualsAndHashCode;
@@ -14,6 +16,7 @@ import lombok.Setter;
 @EqualsAndHashCode(of="id")
 public class ItemPedido {
     
+    @JsonIgnore
     @EmbeddedId
     private ItemPedidoPK id = new ItemPedidoPK();
     private Double desconto;
@@ -28,6 +31,7 @@ public class ItemPedido {
         this.preco = preco;
     }
 
+    @JsonIgnore
     public Pedido getPedido() {
         return id.getPedido();
     }
