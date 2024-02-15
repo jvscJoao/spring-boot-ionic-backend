@@ -29,7 +29,8 @@ public class Cidade {
     @JoinColumn(name = "estado_id")
     private Estado estado;
     
-    public Cidade(String nome, Estado estado) {
+    public Cidade(Integer id, String nome, Estado estado) {
+        this.id = id;
         this.nome = nome;
         this.estado = estado;
     }
