@@ -3,10 +3,12 @@ package com.cursomc.cursomc.dto;
 import org.hibernate.validator.constraints.Length;
 
 import com.cursomc.cursomc.domain.Cliente;
+import com.cursomc.cursomc.validation.ClienteUpdate;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 
+@ClienteUpdate
 public record ClienteDTO(
     Integer id,
     
