@@ -1,5 +1,6 @@
 package com.cursomc.cursomc.exceptions;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -18,9 +19,13 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
     }
 
-    @ExceptionHandler(DataIntegrityException.class)
-    public ResponseEntity<StandarError> dataIntegrity(DataIntegrityException e, HttpServletRequest request) {
-        StandarError err = new StandarError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+    @ExceptionHandler({DataIntegrityViolationException.class, DataIntegrityException.class})
+    public ResponseEntity<StandarError> dataIntegrity(Exception e, HttpServletRequest request) {
+        String errorMessage = "Erro de integridade de dados.";
+        if (e instanceof DataIntegrityViolationException) {
+            errorMessage = "Não é possível excluir o cliente porque há pedidos relacionados.";
+        }
+        StandarError err = new StandarError(HttpStatus.BAD_REQUEST.value(), errorMessage, System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 
