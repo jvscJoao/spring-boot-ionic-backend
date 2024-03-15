@@ -96,10 +96,6 @@ public class Cliente {
         this.cpfOuCpnj = cpfOuCpnj;
     }
 
-    public void setTipo(Integer tipo) {
-        this.tipo = tipo;
-    }
-
     public void setEnderecos(List<Endereco> enderecos) {
         this.enderecos = enderecos;
     }
