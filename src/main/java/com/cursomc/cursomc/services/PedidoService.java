@@ -12,6 +12,7 @@ import com.cursomc.cursomc.domain.PagamentoComBoleto;
 import com.cursomc.cursomc.domain.Pedido;
 import com.cursomc.cursomc.enums.EstadoPagamento;
 import com.cursomc.cursomc.exceptions.ObjectNotFoundException;
+import com.cursomc.cursomc.repositories.ClienteRepository;
 import com.cursomc.cursomc.repositories.ItemPedidoRepository;
 import com.cursomc.cursomc.repositories.PagamentoRepository;
 import com.cursomc.cursomc.repositories.PedidoRepository;
@@ -43,10 +44,14 @@ public class PedidoService {
         ));
     }
 
+	@Autowired
+	private ClienteService clienteService;
+
     @Transactional
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
 		obj.setInstante(new Date());
+		obj.setCliente(clienteService.find(obj.getCliente().getId()));
 		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
 		obj.getPagamento().setPedido(obj);
 		if (obj.getPagamento() instanceof PagamentoComBoleto) {
@@ -57,10 +62,12 @@ public class PedidoService {
 		pagamentoRepository.save(obj.getPagamento());
 		for (ItemPedido ip : obj.getItens()) {
 			ip.setDesconto(0.0);
-			ip.setPreco(produtoService.find(ip.getProduto().getId()).getPreco());
+			ip.setProduto(produtoService.find(ip.getProduto().getId()));
+			ip.setPreco(ip.getProduto().getPreco());
 			ip.setPedido(obj);
 		}
 		itemPedidoRepository.saveAll(obj.getItens());
+		System.out.println(obj);
 		return obj;
 	}
 }
