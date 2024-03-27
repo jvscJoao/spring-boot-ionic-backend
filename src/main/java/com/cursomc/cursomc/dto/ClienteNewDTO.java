@@ -21,6 +21,9 @@ public record ClienteNewDTO(
     String cpfOuCnpj,
 
     Integer tipo,
+    
+    @NotEmpty(message = "Preenchimento obrigatório") 
+    String senha,
 
     @NotEmpty(message = "Preenchimento obrigatório") 
     String logradouro,
